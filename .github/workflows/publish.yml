@@ -1,0 +1,34 @@
+name: Build and Publish Nuget Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build TypeChatSharp/TypeChatSharp.csproj --configuration Release
+
+    - name: Pack Nuget package
+      run: dotnet pack TypeChatSharp/TypeChatSharp.csproj --configuration Release
+
+    - name: Push Nuget package to nuget.org
+      uses: nuget/nuget-push@v1
+      with:
+        nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+        nuget-source: 'https://api.nuget.org/v3/index.json'
+        package: 'TypeChatSharp/bin/Release/TypeChatSharp.*.nupkg'
