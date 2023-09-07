@@ -27,8 +27,6 @@ jobs:
       run: dotnet pack TypeChatSharp/TypeChatSharp.csproj --configuration Release
 
     - name: Push Nuget package to nuget.org
-      uses: nuget/nuget-push@v1
-      with:
-        nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-        nuget-source: 'https://api.nuget.org/v3/index.json'
-        package: 'TypeChatSharp/bin/Release/TypeChatSharp.*.nupkg'
+      run: dotnet nuget push TypeChatSharp/bin/Release/TypeChatSharp.*.nupkg -k ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json --skip-duplicate 
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
