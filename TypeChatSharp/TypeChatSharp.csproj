@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+	<TargetFrameworks>net47;net6.0;net7.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>TypeChatSharp</Title>
     <Authors>hermanussen</Authors>
-	<AssemblyVersion>0.1.0</AssemblyVersion>
+	<AssemblyVersion>0.2.0</AssemblyVersion>
 	<VersionPrefix>$(AssemblyVersion)</VersionPrefix>
 	<Description>TypeChatSharp is a library that makes it easy to build natural language interfaces using types in C#. It is a direct port from TypeChat, but is not maintained by Microsoft.</Description>
 	<PackageProjectUrl>https://github.com/hermanussen/TypeChatSharp</PackageProjectUrl>
@@ -15,6 +15,7 @@
 	<RepositoryUrl>https://github.com/hermanussen/TypeChatSharp</RepositoryUrl>
 	<PackageTags>ai;types;natural-language;llm</PackageTags>
 	<IncludeSymbols>True</IncludeSymbols>
+	<LangVersion>10</LangVersion>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
@@ -24,5 +25,23 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+	<!-- Target framework dependent configuration -->
+	<Choose>
+		<When Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+			<ItemGroup>
+				<PackageReference Include="System.Text.Json" Version="7.0.3" />
+				<PackageReference Include="System.Net.Http" Version="4.3.4" />
+				<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+			</ItemGroup>
+		</When>
+		<When Condition="'$(TargetFramework)' == 'net47'">
+			<ItemGroup>
+				<PackageReference Include="System.Text.Json" Version="7.0.3" />
+				<PackageReference Include="System.Net.Http" Version="4.3.4" />
+				<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+			</ItemGroup>
+		</When>
+	</Choose>
 
 </Project>

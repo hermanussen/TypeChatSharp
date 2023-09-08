@@ -39,21 +39,26 @@ public class AzureOpenAiLanguageModel : ILanguageModel
             var response = await httpClient.PostAsync(endpoint, new StringContent(json, Encoding.UTF8, "application/json"), cancellationToken);
             if (response.IsSuccessStatusCode)
             {
+#if NET47 || NETSTANDARD2_0 || NETSTANDARD2_1
+                var contentStream = await response.Content.ReadAsStreamAsync();
+#else
                 var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
+#endif
+
                 using var jsonDocument = await JsonDocument.ParseAsync(contentStream, cancellationToken: cancellationToken);
                 if (jsonDocument.RootElement.GetProperty("choices").EnumerateArray().Any())
                 {
                     var message = jsonDocument.RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
                     if (!string.IsNullOrEmpty(message))
                     {
-                        return message;
+                        return message!;
                     }
                 }
             }
 
             if (retryCount >= (RetryMaxAttempts ?? 3))
             {
-                throw new Exception($"REST API error ${response.StatusCode}: ${response.RequestMessage}");
+                throw new TranslationException($"REST API error ${response.StatusCode}: ${response.RequestMessage}");
             }
 
             await Task.Delay(RetryPauseMs ?? 1000, cancellationToken);

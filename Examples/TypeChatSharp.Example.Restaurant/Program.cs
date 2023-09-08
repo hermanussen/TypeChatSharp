@@ -40,21 +40,6 @@ string[] pizzaToppings = new string[]{
     "Mama Lil's Peppers"
 };
 
-static List<List<string>> RemoveCommonStrings(string[] a, string[] b)
-{
-    var aSet = new HashSet<string>(a);
-    var bSet = new HashSet<string>(b);
-    foreach (var item in aSet.ToArray())
-    {
-        if (bSet.Contains(item))
-        {
-            aSet.Remove(item);
-            bSet.Remove(item);
-        }
-    }
-    return new List<List<string>> { new List<string>(aSet), new List<string>(bSet) };
-}
-
 var namedPizzas = new Dictionary<PizzaName, string[]>()
 {
     {PizzaName.Hawaiian, new string[] { "pineapple", "Canadian bacon"} },

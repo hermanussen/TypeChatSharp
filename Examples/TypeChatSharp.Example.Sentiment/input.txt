@@ -1,4 +1,4 @@
 hello, world
 TypeChat is awesome!
 I'm having a good day
-it's very rainy outside
+it's very rainy outside and I don't like it
