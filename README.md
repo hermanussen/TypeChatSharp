@@ -1,3 +1,9 @@
+WARNING: This project is no longer being maintained, as there is [a good alternative that is maintained by Microsoft]
+
+---
+
+(https://github.com/microsoft/typechat.net) now.
+
 ![publish to nuget](https://github.com/hermanussen/TypeChatSharp/workflows/Build%20and%20Publish%20Nuget%20Package/badge.svg) [![Nuget](https://img.shields.io/nuget/v/TypeChatSharp)](https://www.nuget.org/packages/TypeChatSharp/) [![Nuget](https://img.shields.io/nuget/dt/TypeChatSharp?label=nuget%20downloads)](https://www.nuget.org/packages/TypeChatSharp/) [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fknifecore%2F)](https://twitter.com/knifecore)
 
 # TypeChatSharp
